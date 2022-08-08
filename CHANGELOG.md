@@ -2,6 +2,10 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v1.0.1 - 2022-08-08
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v1.0.0...v1.0.1
+
 ## v1.0.0 - 2022-08-08
 
 v1.0.0
