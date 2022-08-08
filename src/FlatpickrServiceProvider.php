@@ -12,14 +12,18 @@ class FlatpickrServiceProvider extends PluginServiceProvider
 {
     protected array $styles = [
        'flatpickr-css'  => __DIR__.'/../public/dist/flatpickr.min.css',
-        'monthselect-style' =>__DIR__.'/../public/dist/plugins/monthSelect/style.css',
+        'month-select-style' =>__DIR__.'/../public/dist/plugins/monthSelect/style.css',
+        'confirm-date-style' =>__DIR__.'/../public/dist/plugins/confirmDate/confirmDate.css',
     ];
     protected array $beforeCoreScripts = [
-        'flatpickr-js' =>      __DIR__.'/../public/dist/flatpickr.min.js',
+        'flatpickr-core'      => __DIR__.'/../public/dist/flatpickr.min.js',
+        'flatpickr-range-plugin'      => __DIR__.'/../public/dist/plugins/rangePlugin.js',
+        'flatpickr-month-select'      => __DIR__.'/../public/dist/plugins/monthSelect/index.js',
+        'flatpickr-week-select'      => __DIR__.'/../public/dist/plugins/weekSelect/weekSelect.js',
+        'flatpickr-confirm-date'      => __DIR__.'/../public/dist/plugins/confirmDate/confirmDate.js',
     ];
+
     protected array $scripts = [
-        'range-plugin' => __DIR__.'/../public/dist/plugins/rangePlugin.js',
-        'month-select' => __DIR__.'/../public/dist/plugins/monthSelect/index.js'
     ];
 
     public function configurePackage(Package $package): void

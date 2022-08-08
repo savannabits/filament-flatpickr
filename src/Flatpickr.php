@@ -7,12 +7,70 @@ use Filament\Forms\Components\Field;
 class Flatpickr extends Field
 {
     protected string $view = 'filament-flatpickr::flatpickr';
-    protected bool $monthPicker = false;
+    protected bool $monthSelect = false;
+    protected bool $weekSelect = false;
+    protected bool $rangePicker = false;
+    protected bool $multiplePicker = false;
     protected bool $altInput = true;
     protected ?string $altFormat = 'F j, Y';
     protected bool $enableTime = false;
     protected ?string $dateFormat = 'Y-m-d';
     protected ?string $theme;
+
+
+    /**
+     * @param bool $weekSelect
+     * @return Flatpickr
+     */
+    public function weekSelect(bool $weekSelect = true): Flatpickr
+    {
+        $this->weekSelect = $weekSelect;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWeekSelect(): bool
+    {
+        return $this->weekSelect;
+    }
+
+    /**
+     * @param bool $rangePicker
+     * @return Flatpickr
+     */
+    public function rangePicker(bool $rangePicker = true): Flatpickr
+    {
+        $this->rangePicker = $rangePicker;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isRangePicker(): bool
+    {
+        return $this->rangePicker;
+    }
+
+    /**
+     * @param bool $multiplePicker
+     * @return Flatpickr
+     */
+    public function multiplePicker(bool $multiplePicker = true): Flatpickr
+    {
+        $this->multiplePicker = $multiplePicker;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMultiplePicker(): bool
+    {
+        return $this->multiplePicker;
+    }
 
     protected function setUp(): void
     {
@@ -23,21 +81,21 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $monthPicker
+     * @param bool $monthSelect
      * @return Flatpickr
      */
-    public function monthPicker(?bool $monthPicker = true): Flatpickr
+    public function monthSelect(?bool $monthSelect = true): Flatpickr
     {
-        $this->monthPicker = $monthPicker;
+        $this->monthSelect = $monthSelect;
         return $this;
     }
 
     /**
      * @return bool
      */
-    public function isMonthPicker(): bool
+    public function isMonthSelect(): bool
     {
-        return $this->monthPicker;
+        return $this->monthSelect;
     }
 
     /**

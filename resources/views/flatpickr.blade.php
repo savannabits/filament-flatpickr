@@ -7,12 +7,15 @@
     $attribs = [
         "disabled" => $isDisabled(),
         "theme" => $getTheme(),
+        'monthSelect' => $isMonthSelect(),
+        'weekSelect' => $isWeekSelect(),
+        'mode' => $isRangePicker() ? 'range' : ($isMultiplePicker() ? 'multiple': 'single')
     ];
 @endphp
 @once
     <script>
         document.addEventListener('alpine:init', () => {
-            Alpine.data('datepicker', (model, packageConfig,monthPicker,attribs) => ({
+            Alpine.data('datepicker', (model, packageConfig,attribs) => ({
                 state: model,
                 mode: 'light',
                 attribs: attribs,
@@ -22,16 +25,21 @@
                 init() {
                     this.mode = localStorage.getItem('theme') || (this.darkStatus ? 'dark' : 'light')
                     const config = {
+                        mode: attribs.mode,
                         time_24hr: true,
                         altFormat: 'F j, Y',
                         disableMobile: true,
                         initialDate: this.state,
                         allowInvalidPreload: true,
                         static: false,
-                        plugins: [],
+                        plugins: [new confirmDatePlugin({
+                            confirmText: "OK",
+                            showAlways: false,
+                            theme: this.mode
+                        })],
                         ...packageConfig,
                     };
-                    if (monthPicker) {
+                    if (attribs.monthSelect) {
                         config.plugins.push(new monthSelectPlugin({
                             shorthand: false, //defaults to false
                             dateFormat: "Y-m-01", //defaults to "F Y"
@@ -39,6 +47,8 @@
                             altFormat: "F, Y", //defaults to "F Y"
                             theme: this.mode // defaults to "light"
                         }))
+                    } else if(attribs.weekSelect) {
+                        config.plugins.push(new weekSelect({}))
                     }
                     const fp = flatpickr(this.$refs.picker, config);
                 }
@@ -56,12 +66,12 @@
     :required="$isRequired()"
     :state-path="$getStatePath()"
 >
-    <div wire:ignore x-data="datepicker(@entangle($getStatePath()),@js($config),@js($isMonthPicker()), @js($attribs))">
+    <div wire:ignore x-data="datepicker(@entangle($getStatePath()),@js($config), @js($attribs))">
+        <template x-if="attribs.theme!=='default'">
+            <link x-else rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/${attribs.theme}.css`">
+        </template>
         <template x-if="mode ==='dark'">
             <link rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/dark.css`">
-        </template>
-        <template x-if="mode ==='light' && attribs.theme!=='default'">
-            <link x-else rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/${attribs.theme}.css`">
         </template>
         <!-- Interact with the `state` property in Alpine.js -->
         <div class="flex items-center justify-start relative">
