@@ -2,12 +2,26 @@
 
 namespace Savannabits\Flatpickr;
 
+use Filament\FilamentServiceProvider;
+use Filament\PluginServiceProvider;
+use Illuminate\Foundation\Vite;
 use Spatie\LaravelPackageTools\Package;
-use Spatie\LaravelPackageTools\PackageServiceProvider;
 use Savannabits\Flatpickr\Commands\FlatpickrCommand;
 
-class FlatpickrServiceProvider extends PackageServiceProvider
+class FlatpickrServiceProvider extends PluginServiceProvider
 {
+    protected array $styles = [
+       'flatpickr-css'  => __DIR__.'/../public/dist/flatpickr.min.css',
+        'monthselect-style' =>__DIR__.'/../public/dist/plugins/monthSelect/style.css',
+    ];
+    protected array $beforeCoreScripts = [
+        'flatpickr-js' =>      __DIR__.'/../public/dist/flatpickr.min.js',
+    ];
+    protected array $scripts = [
+        'range-plugin' => __DIR__.'/../public/dist/plugins/rangePlugin.js',
+        'month-select' => __DIR__.'/../public/dist/plugins/monthSelect/index.js'
+    ];
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -18,8 +32,10 @@ class FlatpickrServiceProvider extends PackageServiceProvider
         $package
             ->name('filament-flatpickr')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_filament-flatpickr_table')
-            ->hasCommand(FlatpickrCommand::class);
+            ->hasViews();
+    }
+    protected function getScriptData(): array
+    {
+        return [];
     }
 }
