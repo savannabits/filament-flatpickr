@@ -2,6 +2,10 @@
 
 namespace Savannabits\Flatpickr;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
+use Carbon\Exceptions\InvalidFormatException;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Field;
 
 class Flatpickr extends Field
@@ -89,6 +93,43 @@ class Flatpickr extends Field
         $theme = config('filament-flatpickr.default_theme', 'default');
         $this->theme($theme);
         $this->reactive();
+        $this->afterStateHydrated(static function (Flatpickr $component, $state): void {
+            if (blank($state)) {
+                return;
+            }
+
+            if (! $state instanceof CarbonInterface) {
+                try {
+                    $state = \Illuminate\Support\Carbon::createFromFormat($component->getDateFormat(), $state);
+                } catch (InvalidFormatException $exception) {
+                    $state = Carbon::parse($state);
+                }
+            }
+
+//            $state->setTimezone($component->getTimezone());
+
+            $component->state($state);
+        });
+
+        $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
+            if (blank($state)) {
+                return null;
+            }
+
+            if (! $state instanceof CarbonInterface) {
+                $state = Carbon::parse($state);
+            }
+
+//            $state->shiftTimezone($component->getTimezone());
+            $state->setTimezone(config('app.timezone'));
+
+            return $state->format($component->getDateFormat());
+        });
+
+        $this->rule(
+            'date',
+            static fn (Flatpickr $component): bool => (!$component->isRangePicker() && !$component->isMultiplePicker() && !$component->isWeekSelect()),
+        );
     }
 
     /**
