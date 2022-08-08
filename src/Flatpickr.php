@@ -7,24 +7,33 @@ use Filament\Forms\Components\Field;
 class Flatpickr extends Field
 {
     protected string $view = 'filament-flatpickr::flatpickr';
+
     protected bool $monthSelect = false;
+
     protected bool $weekSelect = false;
+
     protected bool $rangePicker = false;
+
     protected bool $multiplePicker = false;
+
     protected bool $altInput = true;
+
     protected ?string $altFormat = 'F j, Y';
+
     protected bool $enableTime = false;
+
     protected ?string $dateFormat = 'Y-m-d';
+
     protected ?string $theme;
 
-
     /**
-     * @param bool $weekSelect
+     * @param  bool  $weekSelect
      * @return Flatpickr
      */
     public function weekSelect(bool $weekSelect = true): Flatpickr
     {
         $this->weekSelect = $weekSelect;
+
         return $this;
     }
 
@@ -37,12 +46,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $rangePicker
+     * @param  bool  $rangePicker
      * @return Flatpickr
      */
     public function rangePicker(bool $rangePicker = true): Flatpickr
     {
         $this->rangePicker = $rangePicker;
+
         return $this;
     }
 
@@ -55,12 +65,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $multiplePicker
+     * @param  bool  $multiplePicker
      * @return Flatpickr
      */
     public function multiplePicker(bool $multiplePicker = true): Flatpickr
     {
         $this->multiplePicker = $multiplePicker;
+
         return $this;
     }
 
@@ -75,18 +86,19 @@ class Flatpickr extends Field
     protected function setUp(): void
     {
         parent::setUp();
-        $theme = config('filament-flatpickr.default_theme','default');
+        $theme = config('filament-flatpickr.default_theme', 'default');
         $this->theme($theme);
         $this->reactive();
     }
 
     /**
-     * @param bool $monthSelect
+     * @param  bool  $monthSelect
      * @return Flatpickr
      */
     public function monthSelect(?bool $monthSelect = true): Flatpickr
     {
         $this->monthSelect = $monthSelect;
+
         return $this;
     }
 
@@ -99,12 +111,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $altInput
+     * @param  bool  $altInput
      * @return Flatpickr
      */
     public function altInput(bool $altInput = true): Flatpickr
     {
         $this->altInput = $altInput;
+
         return $this;
     }
 
@@ -117,7 +130,7 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $enableTime
+     * @param  bool  $enableTime
      * @return Flatpickr
      */
     public function enableTime(bool $enableTime = true): Flatpickr
@@ -128,6 +141,7 @@ class Flatpickr extends Field
             $this->altInput(false);
             $this->altFormat('Z');
         }
+
         return $this;
     }
 
@@ -140,12 +154,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $dateFormat
+     * @param  string  $dateFormat
      * @return Flatpickr
      */
     public function dateFormat(string $dateFormat): Flatpickr
     {
         $this->dateFormat = $dateFormat;
+
         return $this;
     }
 
@@ -158,12 +173,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $altFormat
+     * @param  string  $altFormat
      * @return Flatpickr
      */
     public function altFormat(string $altFormat): Flatpickr
     {
         $this->altFormat = $altFormat;
+
         return $this;
     }
 
@@ -176,14 +192,17 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $theme
+     * @param  string  $theme
      * @description Possible values: 'default','dark','material_blue','material_green','material_red','material_orange','airbnb','confetti'
+     *
      * @see https://flatpickr.js.org/themes/
+     *
      * @return Flatpickr
      */
     public function theme(string $theme): Flatpickr
     {
         $this->theme = $theme;
+
         return $this;
     }
 

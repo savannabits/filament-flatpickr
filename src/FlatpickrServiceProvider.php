@@ -2,25 +2,23 @@
 
 namespace Savannabits\Flatpickr;
 
-use Filament\FilamentServiceProvider;
 use Filament\PluginServiceProvider;
-use Illuminate\Foundation\Vite;
 use Spatie\LaravelPackageTools\Package;
-use Savannabits\Flatpickr\Commands\FlatpickrCommand;
 
 class FlatpickrServiceProvider extends PluginServiceProvider
 {
     protected array $styles = [
-       'flatpickr-css'  => __DIR__.'/../public/dist/flatpickr.min.css',
-        'month-select-style' =>__DIR__.'/../public/dist/plugins/monthSelect/style.css',
-        'confirm-date-style' =>__DIR__.'/../public/dist/plugins/confirmDate/confirmDate.css',
+        'flatpickr-css' => __DIR__.'/../public/dist/flatpickr.min.css',
+        'month-select-style' => __DIR__.'/../public/dist/plugins/monthSelect/style.css',
+        'confirm-date-style' => __DIR__.'/../public/dist/plugins/confirmDate/confirmDate.css',
     ];
+
     protected array $beforeCoreScripts = [
-        'flatpickr-core'      => __DIR__.'/../public/dist/flatpickr.min.js',
-        'flatpickr-range-plugin'      => __DIR__.'/../public/dist/plugins/rangePlugin.js',
-        'flatpickr-month-select'      => __DIR__.'/../public/dist/plugins/monthSelect/index.js',
-        'flatpickr-week-select'      => __DIR__.'/../public/dist/plugins/weekSelect/weekSelect.js',
-        'flatpickr-confirm-date'      => __DIR__.'/../public/dist/plugins/confirmDate/confirmDate.js',
+        'flatpickr-core' => __DIR__.'/../public/dist/flatpickr.min.js',
+        'flatpickr-range-plugin' => __DIR__.'/../public/dist/plugins/rangePlugin.js',
+        'flatpickr-month-select' => __DIR__.'/../public/dist/plugins/monthSelect/index.js',
+        'flatpickr-week-select' => __DIR__.'/../public/dist/plugins/weekSelect/weekSelect.js',
+        'flatpickr-confirm-date' => __DIR__.'/../public/dist/plugins/confirmDate/confirmDate.js',
     ];
 
     protected array $scripts = [
@@ -38,6 +36,7 @@ class FlatpickrServiceProvider extends PluginServiceProvider
             ->hasConfigFile()
             ->hasViews();
     }
+
     protected function getScriptData(): array
     {
         return [];
