@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Savannabits\Flatpickr\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class FlatpickrCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'filament-flatpickr';
 
     public $description = 'My command';
 
