@@ -5,7 +5,6 @@ namespace Savannabits\Flatpickr;
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidFormatException;
-use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Field;
 
 class Flatpickr extends Field
@@ -128,7 +127,7 @@ class Flatpickr extends Field
 
         $this->rule(
             'date',
-            static fn (Flatpickr $component): bool => (!$component->isRangePicker() && !$component->isMultiplePicker() && !$component->isWeekSelect()),
+            static fn (Flatpickr $component): bool => (! $component->isRangePicker() && ! $component->isMultiplePicker() && ! $component->isWeekSelect()),
         );
     }
 
