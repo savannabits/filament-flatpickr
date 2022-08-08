@@ -2,9 +2,9 @@
 
 namespace Savannabits\Flatpickr;
 
+use Savannabits\Flatpickr\Commands\FlatpickrCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
-use Savannabits\Flatpickr\Commands\FlatpickrCommand;
 
 class FlatpickrServiceProvider extends PackageServiceProvider
 {
