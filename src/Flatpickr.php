@@ -7,28 +7,35 @@ use Filament\Forms\Components\Field;
 class Flatpickr extends Field
 {
     protected string $view = 'filament-flatpickr::flatpickr';
+
     protected bool $monthPicker = false;
+
     protected bool $altInput = true;
+
     protected ?string $altFormat = 'F j, Y';
+
     protected bool $enableTime = false;
+
     protected ?string $dateFormat = 'Y-m-d';
+
     protected ?string $theme;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $theme = config('filament-flatpickr.default_theme','default');
+        $theme = config('filament-flatpickr.default_theme', 'default');
         $this->theme($theme);
         $this->reactive();
     }
 
     /**
-     * @param bool $monthPicker
+     * @param  bool  $monthPicker
      * @return Flatpickr
      */
     public function monthPicker(?bool $monthPicker = true): Flatpickr
     {
         $this->monthPicker = $monthPicker;
+
         return $this;
     }
 
@@ -41,12 +48,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $altInput
+     * @param  bool  $altInput
      * @return Flatpickr
      */
     public function altInput(bool $altInput = true): Flatpickr
     {
         $this->altInput = $altInput;
+
         return $this;
     }
 
@@ -59,7 +67,7 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param bool $enableTime
+     * @param  bool  $enableTime
      * @return Flatpickr
      */
     public function enableTime(bool $enableTime = true): Flatpickr
@@ -70,6 +78,7 @@ class Flatpickr extends Field
             $this->altInput(false);
             $this->altFormat('Z');
         }
+
         return $this;
     }
 
@@ -82,12 +91,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $dateFormat
+     * @param  string  $dateFormat
      * @return Flatpickr
      */
     public function dateFormat(string $dateFormat): Flatpickr
     {
         $this->dateFormat = $dateFormat;
+
         return $this;
     }
 
@@ -100,12 +110,13 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $altFormat
+     * @param  string  $altFormat
      * @return Flatpickr
      */
     public function altFormat(string $altFormat): Flatpickr
     {
         $this->altFormat = $altFormat;
+
         return $this;
     }
 
@@ -118,14 +129,17 @@ class Flatpickr extends Field
     }
 
     /**
-     * @param string $theme
+     * @param  string  $theme
      * @description Possible values: 'default','dark','material_blue','material_green','material_red','material_orange','airbnb','confetti'
+     *
      * @see https://flatpickr.js.org/themes/
+     *
      * @return Flatpickr
      */
     public function theme(string $theme): Flatpickr
     {
         $this->theme = $theme;
+
         return $this;
     }
 
