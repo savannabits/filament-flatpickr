@@ -19,6 +19,7 @@ class FlatpickrServiceProvider extends PluginServiceProvider
         'flatpickr-month-select' => __DIR__.'/../public/dist/plugins/monthSelect/index.js',
         'flatpickr-week-select' => __DIR__.'/../public/dist/plugins/weekSelect/weekSelect.js',
         'flatpickr-confirm-date' => __DIR__.'/../public/dist/plugins/confirmDate/confirmDate.js',
+        'filament-flatpickr' => __DIR__.'/../resources/dist/datepicker.js',
     ];
 
     protected array $scripts = [
