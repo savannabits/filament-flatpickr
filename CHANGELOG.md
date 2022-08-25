@@ -2,6 +2,14 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v1.0.3 - 2022-08-25
+
+### What's Changed
+
+- Update flatpickr.blade.php by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/5
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v1.0.2...v1.0.3
+
 ## v1.0.2 - 2022-08-11
 
 ### What's Changed
