@@ -1,9 +1,9 @@
 @php
-    $config = [
+    $config =array_merge($getConfig(), [
         "altInput" => $isAltInput(),
         "enableTime" => $isEnableTime(),
         "dateFormat" => $getDateFormat(),
-    ];
+    ]);
     $attribs = [
         "disabled" => $isDisabled(),
         "theme" => $getTheme(),
