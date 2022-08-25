@@ -20,6 +20,8 @@ class Flatpickr extends Field
     protected bool $multiplePicker = false;
 
     protected bool $altInput = true;
+    
+    protected array $config = [];
 
     protected ?string $altFormat = 'F j, Y';
 
@@ -46,6 +48,24 @@ class Flatpickr extends Field
     public function isWeekSelect(): bool
     {
         return $this->weekSelect;
+    }
+    
+    /**
+     * @param array $config
+     * @return Flatpickr
+     */
+    public function config(array|\Closure $config): Flatpickr
+    {
+        $this->config = $config;
+        return $this;
+    }
+    
+    /**
+     * @return array
+     */
+    public function getConfig(): array
+    {
+        return $this->config;
     }
 
     /**
