@@ -31,10 +31,6 @@ class Flatpickr extends Field
 
     protected ?string $theme;
 
-    /**
-     * @param  bool  $weekSelect
-     * @return Flatpickr
-     */
     public function weekSelect(bool $weekSelect = true): Flatpickr
     {
         $this->weekSelect = $weekSelect;
@@ -42,9 +38,6 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isWeekSelect(): bool
     {
         return $this->weekSelect;
@@ -52,7 +45,6 @@ class Flatpickr extends Field
 
     /**
      * @param  array  $config
-     * @return Flatpickr
      */
     public function config(array|\Closure $config): Flatpickr
     {
@@ -61,18 +53,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return array
-     */
     public function getConfig(): array
     {
         return $this->config;
     }
 
-    /**
-     * @param  bool  $rangePicker
-     * @return Flatpickr
-     */
     public function rangePicker(bool $rangePicker = true): Flatpickr
     {
         $this->rangePicker = $rangePicker;
@@ -80,18 +65,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isRangePicker(): bool
     {
         return $this->rangePicker;
     }
 
-    /**
-     * @param  bool  $multiplePicker
-     * @return Flatpickr
-     */
     public function multiplePicker(bool $multiplePicker = true): Flatpickr
     {
         $this->multiplePicker = $multiplePicker;
@@ -99,9 +77,6 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isMultiplePicker(): bool
     {
         return $this->multiplePicker;
@@ -154,7 +129,6 @@ class Flatpickr extends Field
 
     /**
      * @param  bool  $monthSelect
-     * @return Flatpickr
      */
     public function monthSelect(?bool $monthSelect = true): Flatpickr
     {
@@ -163,18 +137,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isMonthSelect(): bool
     {
         return $this->monthSelect;
     }
 
-    /**
-     * @param  bool  $altInput
-     * @return Flatpickr
-     */
     public function altInput(bool $altInput = true): Flatpickr
     {
         $this->altInput = $altInput;
@@ -182,18 +149,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isAltInput(): bool
     {
         return $this->altInput;
     }
 
-    /**
-     * @param  bool  $enableTime
-     * @return Flatpickr
-     */
     public function enableTime(bool $enableTime = true): Flatpickr
     {
         $this->enableTime = $enableTime;
@@ -206,18 +166,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return bool
-     */
     public function isEnableTime(): bool
     {
         return $this->enableTime;
     }
 
-    /**
-     * @param  string  $dateFormat
-     * @return Flatpickr
-     */
     public function dateFormat(string $dateFormat): Flatpickr
     {
         $this->dateFormat = $dateFormat;
@@ -225,18 +178,11 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getDateFormat(): ?string
     {
         return $this->dateFormat;
     }
 
-    /**
-     * @param  string  $altFormat
-     * @return Flatpickr
-     */
     public function altFormat(string $altFormat): Flatpickr
     {
         $this->altFormat = $altFormat;
@@ -244,21 +190,15 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getAltFormat(): ?string
     {
         return $this->altFormat;
     }
 
     /**
-     * @param  string  $theme
      * @description Possible values: 'default','dark','material_blue','material_green','material_red','material_orange','airbnb','confetti'
      *
      * @see https://flatpickr.js.org/themes/
-     *
-     * @return Flatpickr
      */
     public function theme(string $theme): Flatpickr
     {
@@ -267,9 +207,6 @@ class Flatpickr extends Field
         return $this;
     }
 
-    /**
-     * @return string|null
-     */
     public function getTheme(): ?string
     {
         return $this->theme;
