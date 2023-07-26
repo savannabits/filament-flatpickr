@@ -11,6 +11,7 @@ use Filament\Forms\Components\Field;
 class FlatDatepicker extends Field
 {
     protected string $view = 'filament-flatpickr::forms.components.flat-datepicker';
+
     protected bool $monthSelect = false;
 
     protected bool $weekSelect = false;
@@ -100,12 +101,12 @@ class FlatDatepicker extends Field
         });*/
 
         $this->dehydrateStateUsing(static function (FlatDatepicker $component, $state) {
-            return app(FilamentFlatpickr::class)::dehydratePickerState($component,$state);
+            return app(FilamentFlatpickr::class)::dehydratePickerState($component, $state);
         });
 
         $this->rule(
             'date',
-            static fn (FlatDatepicker $component): bool => (!$component->isRangePicker() && ! $component->isMultiplePicker() && ! $component->isWeekSelect()),
+            static fn (FlatDatepicker $component): bool => (! $component->isRangePicker() && ! $component->isMultiplePicker() && ! $component->isWeekSelect()),
         );
     }
 

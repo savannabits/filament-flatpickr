@@ -11,6 +11,7 @@ use Filament\Forms\Components\Field;
 class FlatDateTimepicker extends Field
 {
     protected string $view = 'filament-flatpickr::forms.components.flat-datetimepicker';
+
     protected bool $rangePicker = false;
 
     protected bool $multiplePicker = false;
@@ -84,7 +85,7 @@ class FlatDateTimepicker extends Field
         });*/
 
         $this->dehydrateStateUsing(static function ($component, $state) {
-            return app(FilamentFlatpickr::class)::dehydratePickerState($component,$state);
+            return app(FilamentFlatpickr::class)::dehydratePickerState($component, $state);
         });
     }
 
