@@ -1,6 +1,6 @@
 <?php
 
-namespace Savannabits\Flatpickr\Database\Factories;
+namespace Coolsam\FilamentFlatpickr\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 

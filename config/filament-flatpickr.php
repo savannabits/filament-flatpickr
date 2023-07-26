@@ -1,6 +1,6 @@
 <?php
 
-// config for Savannabits/Flatpickr
+// config for Coolsam/FilamentFlatpickr
 return [
-    'default_theme' => 'airbnb', // 'default','dark','material_blue','material_green','material_red','material_orange','airbnb','confetti'
+
 ];

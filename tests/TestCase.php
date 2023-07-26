@@ -1,10 +1,10 @@
 <?php
 
-namespace Savannabits\Flatpickr\Tests;
+namespace Coolsam\FilamentFlatpickr\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Savannabits\Flatpickr\FlatpickrServiceProvider;
+use Coolsam\FilamentFlatpickr\FilamentFlatpickrServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -13,14 +13,14 @@ class TestCase extends Orchestra
         parent::setUp();
 
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Savannabits\\Flatpickr\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => 'Coolsam\\FilamentFlatpickr\\Database\\Factories\\'.class_basename($modelName).'Factory'
         );
     }
 
     protected function getPackageProviders($app)
     {
         return [
-            FlatpickrServiceProvider::class,
+            FilamentFlatpickrServiceProvider::class,
         ];
     }
 

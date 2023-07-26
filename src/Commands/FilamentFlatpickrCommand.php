@@ -1,10 +1,10 @@
 <?php
 
-namespace Savannabits\Flatpickr\Commands;
+namespace Coolsam\FilamentFlatpickr\Commands;
 
 use Illuminate\Console\Command;
 
-class FlatpickrCommand extends Command
+class FilamentFlatpickrCommand extends Command
 {
     public $signature = 'filament-flatpickr';
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Savannabits\Flatpickr;
+namespace Coolsam\FilamentFlatpickr\Forms\Components;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 use Carbon\Exceptions\InvalidFormatException;
+use Coolsam\FilamentFlatpickr\FilamentFlatpickr;
 use Filament\Forms\Components\Field;
 
-class Flatpickr extends Field
+class FlatDatepicker extends Field
 {
-    protected string $view = 'filament-flatpickr::flatpickr';
-
+    protected string $view = 'filament-flatpickr::forms.components.flat-datepicker';
     protected bool $monthSelect = false;
 
     protected bool $weekSelect = false;
@@ -31,7 +31,7 @@ class Flatpickr extends Field
 
     protected ?string $theme;
 
-    public function weekSelect(bool $weekSelect = true): Flatpickr
+    public function weekSelect(bool $weekSelect = true): static
     {
         $this->weekSelect = $weekSelect;
 
@@ -43,10 +43,7 @@ class Flatpickr extends Field
         return $this->weekSelect;
     }
 
-    /**
-     * @param  array  $config
-     */
-    public function config(array|\Closure $config): Flatpickr
+    public function config(array|\Closure $config): static
     {
         $this->config = $config;
 
@@ -58,7 +55,7 @@ class Flatpickr extends Field
         return $this->config;
     }
 
-    public function rangePicker(bool $rangePicker = true): Flatpickr
+    public function range(bool $rangePicker = true): static
     {
         $this->rangePicker = $rangePicker;
 
@@ -70,7 +67,7 @@ class Flatpickr extends Field
         return $this->rangePicker;
     }
 
-    public function multiplePicker(bool $multiplePicker = true): Flatpickr
+    public function multiple(bool $multiplePicker = true): static
     {
         $this->multiplePicker = $multiplePicker;
 
@@ -87,8 +84,7 @@ class Flatpickr extends Field
         parent::setUp();
         $theme = config('filament-flatpickr.default_theme', 'default');
         $this->theme($theme);
-        $this->reactive();
-        $this->afterStateHydrated(static function (Flatpickr $component, $state): void {
+        /*$this->afterStateHydrated(static function (FlatDatepicker $component, $state): void {
             if (blank($state)) {
                 return;
             }
@@ -100,37 +96,23 @@ class Flatpickr extends Field
                     $state = Carbon::parse($state);
                 }
             }
-
-//            $state->setTimezone($component->getTimezone());
-
             $component->state($state);
-        });
+        });*/
 
-        $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
-            if (blank($state)) {
-                return null;
-            }
-
-            if (! $state instanceof CarbonInterface) {
-                $state = Carbon::parse($state);
-            }
-
-//            $state->shiftTimezone($component->getTimezone());
-            $state->setTimezone(config('app.timezone'));
-
-            return $state->format($component->getDateFormat());
+        $this->dehydrateStateUsing(static function (FlatDatepicker $component, $state) {
+            return app(FilamentFlatpickr::class)::dehydratePickerState($component,$state);
         });
 
         $this->rule(
             'date',
-            static fn (Flatpickr $component): bool => (! $component->isRangePicker() && ! $component->isMultiplePicker() && ! $component->isWeekSelect()),
+            static fn (FlatDatepicker $component): bool => (!$component->isRangePicker() && ! $component->isMultiplePicker() && ! $component->isWeekSelect()),
         );
     }
 
     /**
      * @param  bool  $monthSelect
      */
-    public function monthSelect(?bool $monthSelect = true): Flatpickr
+    public function monthSelect(?bool $monthSelect = true): static
     {
         $this->monthSelect = $monthSelect;
 
@@ -142,7 +124,7 @@ class Flatpickr extends Field
         return $this->monthSelect;
     }
 
-    public function altInput(bool $altInput = true): Flatpickr
+    public function altInput(bool $altInput = true): static
     {
         $this->altInput = $altInput;
 
@@ -154,24 +136,12 @@ class Flatpickr extends Field
         return $this->altInput;
     }
 
-    public function enableTime(bool $enableTime = true): Flatpickr
-    {
-        $this->enableTime = $enableTime;
-        if ($enableTime) {
-            $this->dateFormat('Y-m-d H:i:s');
-            $this->altInput(false);
-            $this->altFormat('Z');
-        }
-
-        return $this;
-    }
-
     public function isEnableTime(): bool
     {
         return $this->enableTime;
     }
 
-    public function dateFormat(string $dateFormat): Flatpickr
+    public function dateFormat(string $dateFormat): static
     {
         $this->dateFormat = $dateFormat;
 
@@ -183,7 +153,7 @@ class Flatpickr extends Field
         return $this->dateFormat;
     }
 
-    public function altFormat(string $altFormat): Flatpickr
+    public function altFormat(string $altFormat): static
     {
         $this->altFormat = $altFormat;
 
@@ -200,7 +170,7 @@ class Flatpickr extends Field
      *
      * @see https://flatpickr.js.org/themes/
      */
-    public function theme(string $theme): Flatpickr
+    public function theme(string $theme): static
     {
         $this->theme = $theme;
 
