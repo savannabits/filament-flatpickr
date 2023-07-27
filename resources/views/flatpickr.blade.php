@@ -3,19 +3,23 @@
     $attribs = [
         "disabled" => $isDisabled(),
         "theme" => $getTheme(),
+        "themeAsset" => $getThemeAsset(),
+        "lightThemeAsset" => $getLightThemeAsset(),
+        "darkThemeAsset" => $getDarkThemeAsset(),
         'monthSelect' => $isMonthSelect(),
         'weekSelect' => $isWeekSelect(),
         'mode' => $getMode()
     ];
 @endphp
 @once
-    @push('styles')
-        @if($getTheme() !== \Savannabits\Flatpickr\Enums\FlatpickrTheme::DEFAULT)
-            <link rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/${attribs.theme}.css`">
-        @endif
-    @endpush
     @push('scripts')
-        <script src="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/flatpickr.js") }}"></script>
+        <link rel="stylesheet" type="text/css" href="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/flatpickr.css") }}">
+        <link rel="stylesheet" type="text/css" href="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/plugins/confirmDate/confirmDate.css") }}">
+        <link rel="stylesheet" id="pickr-theme" type="text/css" href="{{ $getLightThemeAsset() }}">
+        @if($isMonthSelect())
+            <link rel="stylesheet" type="text/css" href="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/plugins/monthSelect/style.css") }}">
+        @endif
+        <script src="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/async-alpine/async-alpine.script.js") }}"></script>
     @endpush
 @endonce
 <x-dynamic-component
@@ -33,12 +37,21 @@
 >
     <div
         wire:ignore
+        ax-load
+        ax-load-src="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/js/components/datepicker.js") }}"
         x-data="datepicker({
             state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $getStatePath() . '\')') }},
             packageConfig: @js($config),
             attribs: @js($attribs)
         })"
+
     >
+        <template x-if="attribs.theme!=='default'">
+            <link rel="stylesheet" type="text/css" :href="attribs.themeAsset">
+        </template>
+        <template x-if="mode === 'dark'">
+            <link rel="stylesheet" type="text/css" :href="attribs.darkThemeAsset">
+        </template>
         <!-- Interact with the `state` property in Alpine.js -->
         <div class="flex items-center justify-start relative">
             <x-heroicon-o-calendar

@@ -105,12 +105,12 @@ class Flatpickr extends Field
         $config = [
             'monthSelect' => $this->monthSelect,
             'weekSelect' => $this->weekSelect,
-            'mode' => $this->mode,
+            'mode' => $this->mode->value,
             'altInput' => $this->altInput,
             'altFormat' => $this->altFormat,
             'enableTime' => $this->enableTime,
             'dateFormat' => $this->dateFormat,
-            'theme' => $this->theme,
+            'theme' => $this->theme->value,
             'altInputClass' => $this->altInputClass,
             'allowInput' => $this->allowInput,
             'allowInvalidPreload' => $this->allowInvalidPreload,
@@ -138,8 +138,8 @@ class Flatpickr extends Field
             'weekNumbers' => $this->weekNumbers,
             'wrap' => $this->wrap,
             'showMonths' => $this->showMonths,
-            'position' => $this->position,
-            'monthSelectorType' => $this->monthSelectorType,
+            'position' => $this->position->value,
+            'monthSelectorType' => $this->monthSelectorType->value,
             'animate' => $this->animate,
             'closeOnSelect' => $this->closeOnSelect,
         ];
@@ -203,9 +203,9 @@ class Flatpickr extends Field
         return $this;
     }
 
-    public function getMode(): FlatpickrMode
+    public function getMode(): string
     {
-        return $this->mode;
+        return $this->mode->value;
     }
 
     public function altInputClass(?string $altInputClass = ''): static
@@ -515,9 +515,9 @@ class Flatpickr extends Field
         return $this;
     }
 
-    public function getPosition(): FlatpickrPosition
+    public function getPosition(): string
     {
-        return $this->position;
+        return $this->position->value;
     }
 
     public function position(FlatpickrPosition $position): static
@@ -526,9 +526,9 @@ class Flatpickr extends Field
         return $this;
     }
 
-    public function getMonthSelectorType(): FlatpickrMonthSelectorType
+    public function getMonthSelectorType(): string
     {
-        return $this->monthSelectorType;
+        return $this->monthSelectorType->value;
     }
 
     public function monthSelectorType(FlatpickrMonthSelectorType $monthSelectorType): static
@@ -681,8 +681,25 @@ class Flatpickr extends Field
         return $this;
     }
 
-    public function getTheme(): FlatpickrTheme
+    public function getTheme(): string
     {
-        return $this->theme;
+        return $this->theme?->value;
     }
+
+    public function getThemeAsset(): string
+    {
+        if ($this->getTheme() === FlatpickrTheme::DEFAULT->value) {
+            $this->theme(FlatpickrTheme::LIGHT);
+        }
+        return asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/themes/".$this->getTheme().".css");
+    }
+    public function getDarkThemeAsset(): string
+    {
+        return asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/themes/dark.css");
+    }
+    public function getLightThemeAsset(): string
+    {
+        return asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/themes/light.css");
+    }
+
 }
