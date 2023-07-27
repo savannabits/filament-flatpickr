@@ -2,6 +2,34 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v2.0.0 - 2023-07-27
+
+### What's Changed
+
+- Bump actions/configure-pages from 1 to 3 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/13
+- Bump ramsey/composer-install from 1 to 2 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/9
+- Bump aglipanci/laravel-pint-action from 0.1.0 to 2.2.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/16
+- Bump actions/deploy-pages from 1 to 2 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/15
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/20
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/21
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/25
+- 2.x dev - Full Re-Write of the package, with bug fixes by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/27
+
+### Improvements and Fixes:
+
+1. Dark mode is now enabled on the fly for the FilamentPHP admin panel.
+2. The package can now be used in standalone forms outside the filament admin panel. Closes #1, #2, #6, #23
+3. Almost all of Flatpickr's native configuration is now supported out of the box through a fluent interface. Closes #10, #11, #24
+4. Alpine.js component is now loading lazily using async-alpine
+
+### Breaking Changes
+
+1. Assets have to be published by running `php artisan vendor:publish --tag=filament-flatpickr-assets` in order to be registered
+2. The `rangePicker` and `multiplePicker` methods have been renamed to `range` and `multiple` respectively.
+3. Due to the use of enums, the package now only supports **PHP >= 8.1**
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v1.1.0...v2.0.0
+
 ## v1.1.0 - Support for Laravel 10 - 2023-04-08
 
 ### What's Changed
