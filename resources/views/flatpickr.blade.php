@@ -39,7 +39,7 @@
         wire:ignore
         ax-load
         ax-load-src="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/js/components/datepicker.js") }}"
-        x-data="datepicker({
+        x-data="flatpickrDatepicker({
             state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $getStatePath() . '\')') }},
             packageConfig: @js($config),
             attribs: @js($attribs)
