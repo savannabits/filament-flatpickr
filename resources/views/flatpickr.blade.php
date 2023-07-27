@@ -49,9 +49,6 @@
         <template x-if="attribs.theme!=='default'">
             <link rel="stylesheet" type="text/css" :href="attribs.themeAsset">
         </template>
-        <template x-if="mode === 'dark'">
-            <link rel="stylesheet" type="text/css" :href="attribs.darkThemeAsset">
-        </template>
         <!-- Interact with the `state` property in Alpine.js -->
         <div class="flex items-center justify-start relative">
             <x-heroicon-o-calendar
