@@ -30,7 +30,7 @@ class Flatpickr extends Field
     protected bool $allowInput = false;
     protected bool $allowInvalidPreload = false;
     protected ?string $ariaDateFormat = "F j, Y";
-    protected ?string $conjunction = null;
+    protected ?string $conjunction = ',';
     protected bool $clickOpens = true;
     protected int $defaultHour = 12;
     protected int $defaultMinute = 0;
@@ -187,7 +187,7 @@ class Flatpickr extends Field
                     ->setTimezone(config('app.timezone'))->format($component->getDateFormat()))
                     ->toArray();
             } elseif ($component->isMultiplePicker()) {
-                $range = \Str::of($state)->explode(',');
+                $range = \Str::of($state)->explode($component->getConjunction());
                 $state = collect($range)->map(fn ($date) => Carbon::parse($date)
                     ->setTimezone(config('app.timezone'))->format($component->getDateFormat()))
                     ->toArray();
