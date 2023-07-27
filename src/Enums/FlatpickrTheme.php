@@ -1,6 +1,9 @@
 <?php
+
 namespace Savannabits\Flatpickr\Enums;
-enum FlatpickrTheme: string {
+
+enum FlatpickrTheme: string
+{
     case DEFAULT = 'default';
     case LIGHT = 'light';
     case DARK = 'dark';
