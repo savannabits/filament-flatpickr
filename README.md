@@ -7,7 +7,7 @@
     <a href="https://packagist.org/packages/savannabits/filament-flatpickr"><img alt="Packagist" src="https://img.shields.io/packagist/dt/savannabits/filament-flatpickr.svg?style=for-the-badge&logo=count"></a>
 </p>
 
-Use **[Flatpickr](https://flatpickr.js.org/)** as your date picker in your Filament Forms and Panels.
+Use **[Flatpickr](https://flatpickr.js.org/)** as your datepicker in the Filament Forms and Panels.
 
 **NB: These docs are for v2.x, which only supports Filament 2.x. Support for Filament 3.x is still under development**
 
@@ -35,8 +35,8 @@ module.exports = {
 ```
 
 ## Usage
-The Flatpickr component from this package a **datepicker, timepicker, datetimepicker, date range picker, week picker and month picker** based on your configuration.
-Most of the fluent config methods you can align are similar to [Flatpickr's official](https://flatpickr.js.org/options/) options in naming.
+You can use the Flatpickr component from this package as a **datepicker, timepicker, datetimepicker, date range picker, week picker, multiple date picker and month picker** based on your configuration.
+Most of the fluent config methods are similar to [Flatpickr's official](https://flatpickr.js.org/options/) options in naming.
 The rest of the methods are just like the other filament inputs.
 
 Here are some examples of the methods. Refer to Flatpickr's Official Documentation for details on each of the configurations.
