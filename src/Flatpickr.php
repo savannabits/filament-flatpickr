@@ -13,6 +13,7 @@ use Savannabits\Flatpickr\Enums\FlatpickrTheme;
 
 class Flatpickr extends Field
 {
+    const PACKAGE_NAME='filament-flatpickr';
     protected string $view = 'filament-flatpickr::flatpickr';
     protected bool $monthSelect = false;
     protected bool $time = false;

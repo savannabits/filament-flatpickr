@@ -2,10 +2,12 @@
 
 namespace Savannabits\Flatpickr;
 
+use Filament\FilamentManager;
 use Filament\PluginServiceProvider;
 use Spatie\LaravelPackageTools\Package;
+use Spatie\LaravelPackageTools\PackageServiceProvider;
 
-class FlatpickrServiceProvider extends PluginServiceProvider
+class FlatpickrServiceProvider extends PackageServiceProvider
 {
     protected array $styles = [
         'flatpickr-css' => __DIR__.'/../public/dist/flatpickr.min.css',
@@ -25,6 +27,20 @@ class FlatpickrServiceProvider extends PluginServiceProvider
     protected array $scripts = [
     ];
 
+    public function packageBooted()
+    {
+        if ($this->app->has('filament')) {
+            /**
+             * @var FilamentManager $filament
+             */
+            $filament = $this->app['filament'];
+            $filament->serving(function () use ($filament) {
+                $filament->registerStyles($this->styles);
+                $filament->registerScripts($this->beforeCoreScripts,true);
+            });
+        }
+    }
+
     public function configurePackage(Package $package): void
     {
         /*
@@ -33,7 +49,7 @@ class FlatpickrServiceProvider extends PluginServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('filament-flatpickr')
+            ->name(Flatpickr::PACKAGE_NAME)
             ->hasConfigFile()
             ->hasViews();
     }

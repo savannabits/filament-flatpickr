@@ -8,6 +8,16 @@
         'mode' => $getMode()
     ];
 @endphp
+@once
+    @push('styles')
+        @if($getTheme() !== \Savannabits\Flatpickr\Enums\FlatpickrTheme::DEFAULT)
+            <link rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/${attribs.theme}.css`">
+        @endif
+    @endpush
+    @push('scripts')
+        <script src="{{ asset("vendor/".\Savannabits\Flatpickr\Flatpickr::PACKAGE_NAME."/flatpickr/flatpickr.js") }}"></script>
+    @endpush
+@endonce
 <x-dynamic-component
     :component="$getFieldWrapperView()"
     :id="$getId()"
@@ -24,17 +34,11 @@
     <div
         wire:ignore
         x-data="datepicker({
-            state: @entangle($getStatePath()),
+            state: $wire.{{ $applyStateBindingModifiers('entangle(\'' . $getStatePath() . '\')') }},
             packageConfig: @js($config),
             attribs: @js($attribs)
         })"
     >
-        <template x-if="attribs.theme !== 'default'">
-            <link rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/${attribs.theme}.css`">
-        </template>
-        <template x-if="mode ==='dark'">
-            <link rel="stylesheet" type="text/css" :href="`https://npmcdn.com/flatpickr/dist/themes/dark.css`">
-        </template>
         <!-- Interact with the `state` property in Alpine.js -->
         <div class="flex items-center justify-start relative">
             <x-heroicon-o-calendar
