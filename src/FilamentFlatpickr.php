@@ -4,6 +4,7 @@ namespace Coolsam\FilamentFlatpickr;
 
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
+use Coolsam\FilamentFlatpickr\Enums\FlatpickrMode;
 
 class FilamentFlatpickr
 {
@@ -18,7 +19,7 @@ class FilamentFlatpickr
             return null;
         }
         if (! $state instanceof CarbonInterface) {
-            if ($component->isRangePicker()) {
+            if ($component->isRangePicker() || $component->getMode() === FlatpickrMode::RANGE) {
                 $range = \Str::of($state)->explode(' to ');
                 $state = collect($range)->map(fn ($date) => Carbon::parse($date)
                     ->setTimezone(config('app.timezone'))->format($component->getDateFormat()))
@@ -28,9 +29,6 @@ class FilamentFlatpickr
                 $state = collect($range)->map(fn ($date) => Carbon::parse($date)
                     ->setTimezone(config('app.timezone'))->format($component->getDateFormat()))
                     ->toArray();
-            } else {
-                $state = Carbon::parse($state)->setTimezone(config('app.timezone'))
-                    ->format($component->getDateFormat());
             }
         }
 

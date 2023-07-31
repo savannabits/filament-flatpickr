@@ -1,9 +1,10 @@
 @php
     $config =array_merge($getConfig(), [
-        "altInput" => $isAltInput(),
-        "enableTime" => $isEnableTime(),
-        "dateFormat" => $getDateFormat(),
+        "altInput"      => $isAltInput(),
+        "enableTime"    => $isEnableTime(),
+        "dateFormat"    => $getDateFormat(),
     ]);
+
     $attribs = [
         "disabled" => $isDisabled(),
         "theme" => $getTheme(),
@@ -14,7 +15,7 @@
 @endphp
 @once
     <script>
-        
+
     </script>
 @endonce
 <x-forms::field-wrapper

@@ -1,13 +1,11 @@
 @php
-    $config =array_merge($getConfig(), [
-        "altInput" => $isAltInput(),
-        "enableTime" => true,
-        "dateFormat" => $getDateFormat(),
-    ]);
+    $config =array_merge($getConfig(), $getCustomConfig());
     $attribs = [
         "disabled" => $isDisabled(),
         "theme" => $getTheme(),
-        'mode' => $isMultiplePicker() ? 'multiple': 'single'
+        'monthSelect' => $isMonthSelect(),
+        'weekSelect' => $isWeekSelect(),
+        'mode' => $getMode()
     ];
 @endphp
 <x-dynamic-component
@@ -17,7 +15,7 @@
     <div
         x-ignore
         ax-load
-        x-load-css="[
+        {{--x-load-css="[
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-css', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('month-select-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-confirm-date-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
@@ -25,8 +23,10 @@
         x-load-js="[
             @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-core', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
             @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-range-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-confirm-date', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
-        ]"
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-confirm-date', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-month-select-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
+            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-week-select-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
+        ]"--}}
         ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('flat-datepicker',package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()) }}"
         x-data="flatpickrDatepicker({
             state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},
