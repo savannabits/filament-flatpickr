@@ -2,6 +2,24 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## 3.0.0 - 2023-08-02
+
+### What's Changed
+
+- Bump actions/configure-pages from 1 to 3 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/13
+- Bump ramsey/composer-install from 1 to 2 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/9
+- Bump aglipanci/laravel-pint-action from 0.1.0 to 2.2.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/16
+- Bump actions/deploy-pages from 1 to 2 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/15
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/20
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/21
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/25
+- Bump aglipanci/laravel-pint-action from 2.2.0 to 2.3.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/30
+- Version 3 dev: Full Rewrite for Filament 3 by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/31
+- Readme UPDATE by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/32
+- Refactored README by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/33
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v1.1.0...3.0.0
+
 ## v2.0.0 - 2023-07-27
 
 ### What's Changed
