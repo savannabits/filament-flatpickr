@@ -1,6 +1,9 @@
 <?php
+
 namespace Coolsam\FilamentFlatpickr\Enums;
-enum FlatpickrTheme: string {
+
+enum FlatpickrTheme: string
+{
     case DEFAULT = 'default';
     case DARK = 'dark';
     case LIGHT = 'light';

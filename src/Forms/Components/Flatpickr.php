@@ -8,11 +8,10 @@ use Coolsam\FilamentFlatpickr\Enums\FlatpickrMode;
 use Coolsam\FilamentFlatpickr\Enums\FlatpickrMonthSelectorType;
 use Coolsam\FilamentFlatpickr\Enums\FlatpickrPosition;
 use Coolsam\FilamentFlatpickr\Enums\FlatpickrTheme;
-use Filament\Forms\Components\Field;
-use Filament\Support\Concerns\HasExtraAlpineAttributes;
 use Filament\Forms\Components\Concerns;
 use Filament\Forms\Components\Contracts;
-use Filament\Support\Facades\FilamentAsset;
+use Filament\Forms\Components\Field;
+use Filament\Support\Concerns\HasExtraAlpineAttributes;
 
 class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contracts\HasAffixActions
 {
@@ -25,7 +24,9 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
     use Concerns\HasInputMode;
     use Concerns\HasPlaceholder;
     use HasExtraAlpineAttributes;
+
     const PACKAGE_NAME = 'coolsam/flatpickr';
+
     protected string $view = 'coolsam-flatpickr::forms.components.flatpickr';
 
     protected bool $monthSelect = false;
@@ -236,7 +237,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             </svg>
             '
         );
-        $this->theme(config('coolsam-flatpickr.default_theme',FlatpickrTheme::DEFAULT));
+        $this->theme(config('coolsam-flatpickr.default_theme', FlatpickrTheme::DEFAULT));
         $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
             return self::dehydratePickerState($component, $state);
         });
@@ -800,6 +801,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         if ($this->getTheme() === FlatpickrTheme::DEFAULT->value) {
             $this->theme(FlatpickrTheme::LIGHT);
         }
+
         return asset('css/'.static::PACKAGE_NAME.'/flatpickr-'.$this->getTheme().'-theme.css');
     }
 
