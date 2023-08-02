@@ -20,7 +20,7 @@ class FilamentFlatpickrServiceProvider extends PackageServiceProvider
          * More info: https://github.com/spatie/laravel-package-tools
          */
         $package
-            ->name('filament-flatpickr')
+            ->name('coolsam-flatpickr')
             ->hasConfigFile()
             ->hasViews()
             ->hasCommand(FilamentFlatpickrCommand::class);
@@ -40,11 +40,12 @@ class FilamentFlatpickrServiceProvider extends PackageServiceProvider
             Css::make('flatpickr-confetti-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/confetti.css')->loadedOnRequest(),
             Css::make('flatpickr-dark-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/dark.css')->loadedOnRequest(),
             Css::make('flatpickr-light-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/light.css')->loadedOnRequest(),
+            Css::make('flatpickr-default-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/light.css')->loadedOnRequest(),
             Css::make('flatpickr-material_blue-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/material_blue.css')->loadedOnRequest(),
             Css::make('flatpickr-material_green-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/material_green.css')->loadedOnRequest(),
             Css::make('flatpickr-material_red-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/material_red.css')->loadedOnRequest(),
             Css::make('flatpickr-material_orange-theme', __DIR__ . '/../resources/assets/flatpickr/dist/themes/material_orange.css')->loadedOnRequest(),
-            AlpineComponent::make('flatpickr-component', __DIR__ . '/../resources/js/dist/components/flatpickr-component.js'),
+            AlpineComponent::make('flatpickr-component', __DIR__ . '/../resources/js/dist/components/flatpickr-component.js')->loadedOnRequest(),
         ], package: FilamentFlatpickr::getPackageName());
     }
 }

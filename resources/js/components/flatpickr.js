@@ -14,13 +14,17 @@ export default function flatpickrDatepicker(args) {
             return window.matchMedia('(prefers-color-scheme: dark)').matches;
         },
         get getMode() {
-            /*if (localStorage.getItem('theme')) {
+            if (localStorage.getItem('theme')) {
                 return localStorage.getItem('theme');
-            }*/
-            return this.darkStatus ? 'dark' : 'light';
+            }
+            this.mode = this.darkStatus ? 'dark' : 'light';
+            return this.mode;
+        },
+        get darkLightAssetUrl() {
+            return this.darkStatus ? this.attribs.darkThemeAsset : this.attribs.lightThemeAsset
         },
         init: function () {
-            this.mode = localStorage.getItem('theme') || (this.darkStatus ? 'dark' : 'light')
+            this.mode = this.darkStatus ? 'dark' : 'light';
             const config = {
                 mode: this.attribs.mode,
                 time_24hr: true,
@@ -39,6 +43,7 @@ export default function flatpickrDatepicker(args) {
             };
             if (this.getMode === 'dark') {
                 let el = document.querySelector('#pickr-theme')
+                console.log(el);
                 if (el) {
                     el.href = this.attribs.darkThemeAsset;
                 }
@@ -58,13 +63,13 @@ export default function flatpickrDatepicker(args) {
             }*/
             this.fp = flatpickr(this.$refs.picker, config);
             this.fp.parseDate(this.state, this.packageConfig.dateFormat)
-            window.addEventListener('dark-mode-toggled', e => {
+            window.addEventListener('theme-changed', e => {
                 this.mode = e.detail;
-                let href = '';
-                if (this.mode == 'dark') {
+                let href;
+                if (this.mode === 'dark') {
                     href = this.attribs.darkThemeAsset;
                 } else {
-                    href = this.attribs.lightThemeAsset;
+                    href = this.attribs.themeAsset;
                 }
                 document.querySelector('#pickr-theme').href = href;
             })

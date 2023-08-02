@@ -15,7 +15,7 @@
     $config =array_merge($getConfig(), $getCustomConfig());
     $attribs = [
         "disabled" => $isDisabled,
-        "theme" => $getTheme(),
+        "theme" => $getTheme() =='default' ? 'default' : $getTheme(),
         "themeAsset" => $getThemeAsset(),
         "lightThemeAsset" => $getLightThemeAsset(),
         "darkThemeAsset" => $getDarkThemeAsset(),
@@ -29,18 +29,20 @@
     :component="$getFieldWrapperView()"
     :field="$field"
 >
-    <link rel="stylesheet" id="pickr-theme" type="text/css" href="{{ $getLightThemeAsset() }}">
+    <link rel="stylesheet" id="pickr-theme" type="text/css" href="{{$getThemeAsset()}}">
     <div
         x-data="flatpickrDatepicker({
-                state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},
+{{--                state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},--}}
                 packageConfig: @js($config),
                 attribs: @js($attribs)
             })"
         x-ignore
         ax-load
         x-load-css="[
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-css', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('month-select-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-confirm-date-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
+            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-confirm-date-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
+            {{--@js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-'.$attribs['theme'].'-theme', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))--}}
         ]"
         ax-load-src="{{\Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('flatpickr-component',package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())}}"
     >
