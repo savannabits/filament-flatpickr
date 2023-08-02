@@ -7,9 +7,9 @@
     <a href="https://packagist.org/packages/savannabits/filament-flatpickr"><img alt="Packagist" src="https://img.shields.io/packagist/dt/savannabits/filament-flatpickr.svg?style=for-the-badge&logo=count"></a>
 </p>
 
-Use **[Flatpickr](https://flatpickr.js.org/)** as your datepicker in the Filament Forms and Panels.
+Use **[Flatpickr](https://flatpickr.js.org/)** as your Filament Forms and Panels date picker.
 
-**NB: These docs are for v2.x, which only supports Filament 2.x. Support for Filament 3.x is still under development**
+**NB: These docs are for v2.x, which only supports Filament 2.x. For [v3.x Use this Guide](https://github.com/savannabits/filament-flatpickr)**
 
 ## Installation
 
