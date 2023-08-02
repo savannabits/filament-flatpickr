@@ -1,59 +1,100 @@
-# Integrate Filament Flatpickr into FilamentPHP
+<p align="center">
+    <a href="https://github.com/savannabits/filament-flatpickr/actions?query=workflow%3Arun-tests+branch%3A3.x"><img alt="Tests" src="https://img.shields.io/github/actions/workflow/status/savannabits/filament-modules/run-tests.yml?branch=3.x&label=tests&style=for-the-badge&logo=github"></a>
+    <a href="https://github.com/savannabits/filament-flatpickr/actions?query=workflow%fix-php-code-style-issues+branch%3A3.x"><img alt="Styling" src="https://img.shields.io/github/actions/workflow/status/savannabits/filament-modules/fix-php-code-style-issues.yml?branch=3.x&label=code%20style&style=for-the-badge&logo=github"></a>
+    <a href="https://laravel.com"><img alt="Laravel v9.x" src="https://img.shields.io/badge/Laravel-v9.x-FF2D20?style=for-the-badge&logo=laravel"></a>
+    <a href="https://filamentphp.com"><img alt="Filament v3.x" src="https://img.shields.io/badge/FilamentPHP-v3.x-FB70A9?style=for-the-badge&logo=filament"></a>
+    <a href="https://php.net"><img alt="PHP 8.1" src="https://img.shields.io/badge/PHP-8.1-777BB4?style=for-the-badge&logo=php"></a>
+    <a href="https://packagist.org/packages/savannabits/filament-flatpickr"><img alt="Packagist" src="https://img.shields.io/packagist/dt/savannabits/filament-flatpickr.svg?style=for-the-badge&logo=count"></a>
+</p>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/coolsam/filament-flatpickr.svg?style=flat-square)](https://packagist.org/packages/coolsam/filament-flatpickr)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/coolsam/filament-flatpickr/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/coolsam/filament-flatpickr/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/coolsam/filament-flatpickr/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/coolsam/filament-flatpickr/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/coolsam/filament-flatpickr.svg?style=flat-square)](https://packagist.org/packages/coolsam/filament-flatpickr)
+Use **[Flatpickr](https://flatpickr.js.org/)** as your datepicker in the Filament Forms and Panels.
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/filament-flatpickr.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/filament-flatpickr)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+**NB: These docs are for v3.x, which only supports Filament 3.x. For Filament v2 users, [use this guide instead](https://github.com/savannabits/filament-flatpickr/tree/main)**
 
 ## Installation
 
-You can install the package via composer:
+Install the package via composer:
 
 ```bash
-composer require coolsam/filament-flatpickr
+composer require coolsam/flatpickr
 ```
-
-You can publish and run the migrations with:
+Next, Run the `filament:assets` command to ensure the package's assets are published:
 
 ```bash
-php artisan vendor:publish --tag="filament-flatpickr-migrations"
-php artisan migrate
+php artisan filament:assets
 ```
 
-You can publish the config file with:
+You may optionally publish the package's config file with the following command:
 
 ```bash
-php artisan vendor:publish --tag="filament-flatpickr-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-flatpickr-views"
+php artisan vendor:publish --tag="coolsam-flatpickr-config"
 ```
 
 ## Usage
+You can do a lot with just one Component: `Flatpickr`
+You can use the Flatpickr component from this package as:
+* DatePicker
+* TimePicker
+* DateTimePicker
+* Range Picker
+* Week Picker,
+* Multiple-Date Picker
+* Month Picker
+
+Most of the fluent config methods are similar to [Flatpickr's official](https://flatpickr.js.org/options/) options in naming.
+The rest of the configuration is similar to a normal Filament `TextInput`.
+
+Here are some examples of the methods. Refer to Flatpickr's Official Documentation for details on each of the configurations.
 
 ```php
-$filamentFlatpickr = new Coolsam\FilamentFlatpickr();
-echo $filamentFlatpickr->echoPhrase('Hello, Coolsam!');
+use Coolsam\FilamentFlatpickr\Forms\Components\Flatpickr;
+
+// Basic, Date Field
+Flatpickr::make('test_field') // Minimal Config as a datepicker
+Flatpickr::make('test_field')
+    ->allowInput() // Allow a user to manually input the date in the textbox (make the textbox editable)
+    ->altInput(true) // Enable the use of Alternative Input (See Flatpickr docs)
+    ->altFormat('F j, Y') // Alternative input format
+    ->enableTime() // Turn this into a DateTimePicker
+    ->disabledDates(['2023-07-25','2023-07-26']) // Disable specific dates from being selected.
+    ->minDate(today()->startOfYear()) // Set the minimum allowed date
+    ->maxDate(today()) // Set the maximum allowed date.
+    ->minTime(now()->format('H:i:s')) // Set the minimum allowed time
+    ->maxTime(now()->addHours(12)->format('H:i:s')) // Set the maximum allowed time
+    ->hourIncrement(1) // Intervals of incrementing hours in a time picker
+    ->minuteIncrement(10) // Intervals of minute increment in a time picker
+    ->enableSeconds(false) // Enable seconds in a time picker
+    ->defaultSeconds(0) //Initial value of the seconds element, when no date is selected 
+    ->defaultMinute(00) // Initial value of the minutes element, when no date is selected
+    ->allowInvalidPreload() // Initially check if the selected date is valid
+    ->altInputClass('sample-class') // Add a css class for the alt input format
+    ->animate() // Animate transitions in the datepicker.
+    ->dateFormat('Y-m-d') // Set the main date format
+    ->ariaDateFormat('Y-m-d') // Aria
+    ->clickOpens(true) // Open the datepicker when the input is clicked.
+    ->closeOnSelect(true) // Close the datepicker once the date is selected.
+    ->conjunction(',') // Applicable only for the MultiDatePicker: Separate inputs using this conjunction. The package will use this conjunction to explode the inputs to an array.
+    ->inline(true) // Display the datepicker inline with the input, instead of using a popover.
+    ->disableMobile(true) // Disable mobile-version of the datepicker on mobile devices.
+    ->theme(\Savannabits\Flatpickr\Enums\FlatpickrTheme::AIRBNB) // Set the datepicker theme (applies for all the datepickers in the current page). For type sanity, Checkout the FlatpickrTheme enum class for a list of allowed themes.
+    ->mode(\Savannabits\Flatpickr\Enums\FlatpickrMode::RANGE) // Set the mode as single, range or multiple. Alternatively, you can just use ->range() or ->multiple()
+    ->monthSelectorType(\Savannabits\Flatpickr\Enums\FlatpickrMonthSelectorType::DROPDOWN)
+    ->shorthandCurrentMonth(true)
+    ->nextArrow('>')
+    ->prevArrow('<')
+    ->noCalendar(true)
+    ->position(\Savannabits\Flatpickr\Enums\FlatpickrPosition::AUTO_CENTER)
+    ->showMonths(1)
+    ->weekNumbers(true)
+    ->use24hr(true)
+    ->wrap(true)
+;
+Flatpickr::make('published_at')->enableTime() // Use as a DateTimePicker
+Flatpickr::make('week')->weekSelect() // Use as a Week Picker
+Flatpickr::make('report_month')->monthSelect() // Use as a Month Picker
+Flatpickr::make('start_time')->time() // Use as a TimePicker
+Flatpickr::make('filter_range')->range() // Use as a Date Range Picker
+Flatpickr::make('list_of_dates')->multiple() // Use as a Multiple Date Picker
 ```
 
 ## Testing
@@ -68,7 +109,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](https://github.com/savannabits/.github/blob/main/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
@@ -76,7 +117,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [Sam Maosa](https://github.com/savannabits)
+- [Savannabits](https://github.com/savannabits)
 - [All Contributors](../../contributors)
 
 ## License
