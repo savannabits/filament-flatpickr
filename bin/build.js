@@ -45,6 +45,6 @@ const defaultOptions = {
 
 compile({
     ...defaultOptions,
-    entryPoints: ['./resources/js/components/datepicker.js'],
-    outfile: './resources/js/dist/components/datepicker.js',
+    entryPoints: ['./resources/js/components/flatpickr.js'],
+    outfile: './resources/js/dist/components/flatpickr-component.js',
 })

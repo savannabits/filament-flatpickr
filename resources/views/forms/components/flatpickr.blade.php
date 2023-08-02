@@ -1,45 +1,86 @@
 @php
+    $extraAlpineAttributes = $getExtraAlpineAttributes();
+    $id = $getId();
+    $isConcealed = $isConcealed();
+    $isDisabled = $isDisabled();
+    $isPrefixInline = $isPrefixInline();
+    $isSuffixInline = $isSuffixInline();
+    $prefixActions = $getPrefixActions();
+    $prefixIcon = $getPrefixIcon();
+    $prefixLabel = $getPrefixLabel();
+    $suffixActions = $getSuffixActions();
+    $suffixIcon = $getSuffixIcon();
+    $suffixLabel = $getSuffixLabel();
+    $statePath = $getStatePath();
     $config =array_merge($getConfig(), $getCustomConfig());
     $attribs = [
-        "disabled" => $isDisabled(),
+        "disabled" => $isDisabled,
         "theme" => $getTheme(),
-        'monthSelect' => $isMonthSelect(),
-        'weekSelect' => $isWeekSelect(),
-        'mode' => $getMode()
+        "themeAsset" => $getThemeAsset(),
+        "lightThemeAsset" => $getLightThemeAsset(),
+        "darkThemeAsset" => $getDarkThemeAsset(),
+        'monthSelect'   => $isMonthSelect(),
+        'weekSelect'    => $isWeekSelect(),
+        'mode'          => $getMode(),
+        'rangePicker'   => $isRangePicker(),
     ];
 @endphp
 <x-dynamic-component
     :component="$getFieldWrapperView()"
     :field="$field"
 >
+    <link rel="stylesheet" id="pickr-theme" type="text/css" href="{{ $getLightThemeAsset() }}">
     <div
+        x-data="flatpickrDatepicker({
+                state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},
+                packageConfig: @js($config),
+                attribs: @js($attribs)
+            })"
         x-ignore
         ax-load
-        {{--x-load-css="[
-            @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-css', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
+        x-load-css="[
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('month-select-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
             @js(\Filament\Support\Facades\FilamentAsset::getStyleHref('flatpickr-confirm-date-style', \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
         ]"
-        x-load-js="[
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-core', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-range-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-confirm-date', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-month-select-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())),
-            @js(\Filament\Support\Facades\FilamentAsset::getScriptSrc('flatpickr-week-select-plugin', package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()))
-        ]"--}}
-        ax-load-src="{{ \Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('flat-datepicker',package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName()) }}"
-        x-data="flatpickrDatepicker({
-            state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},
-            packageConfig: @js($config),
-            attribs: @js($attribs)
-        })"
+        ax-load-src="{{\Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('flatpickr-component',package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())}}"
     >
-        <input
-            {{$isDisabled() ? 'disabled': ''}}
-            class="block w-full h-10 pl-10 placeholder-gray-400 transition duration-75 border-gray-300 rounded-lg shadow-sm focus:border-primary-600 focus:ring-1 focus:ring-inset focus:ring-primary-600 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:placeholder-gray-400"
-            x-ref="picker"
-            x-model="state"
-            id="picker"
+        <x-filament::input.wrapper
+            :disabled="$isDisabled"
+            :inline-prefix="$isPrefixInline"
+            :inline-suffix="$isSuffixInline"
+            :prefix="$prefixLabel"
+            :prefix-actions="$prefixActions"
+            :prefix-icon="$prefixIcon"
+            :suffix="$suffixLabel"
+            :suffix-actions="$suffixActions"
+            :suffix-icon="$suffixIcon"
+            :valid="! $errors->has($statePath)"
+            class="fi-fo-text-input"
+            :attributes="
+            \Filament\Support\prepare_inherited_attributes($getExtraAttributeBag())
+                ->class(['overflow-hidden'])
+        "
         >
+            <x-filament::input
+                :attributes="
+                \Filament\Support\prepare_inherited_attributes($getExtraInputAttributeBag())
+                    ->merge($extraAlpineAttributes, escape: false)
+                    ->merge([
+                        'autocapitalize' => $getAutocapitalize(),
+                        'autocomplete' => $getAutocomplete(),
+                        'autofocus' => $isAutofocused(),
+                        'disabled' => $isDisabled,
+                        'id' => $id,
+                        'x-ref' => 'picker',
+                        'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
+                        'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
+                        'placeholder' => $getPlaceholder(),
+                        'readonly' => $isReadOnly(),
+                        'required' => $isRequired() && (! $isConcealed),
+                        'type' => 'text',
+                    ], escape: false)
+            "
+            />
+        </x-filament::input.wrapper>
     </div>
 </x-dynamic-component>
