@@ -2,9 +2,9 @@
 
 namespace Coolsam\FilamentFlatpickr\Tests;
 
+use Coolsam\FilamentFlatpickr\FilamentFlatpickrServiceProvider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Coolsam\FilamentFlatpickr\FilamentFlatpickrServiceProvider;
 
 class TestCase extends Orchestra
 {
