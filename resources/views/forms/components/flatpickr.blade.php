@@ -32,7 +32,7 @@
     <link rel="stylesheet" id="pickr-theme" type="text/css" href="{{$getThemeAsset()}}">
     <div
         x-data="flatpickrDatepicker({
-{{--                state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},--}}
+                state: $wire.{{ $applyStateBindingModifiers("entangle('{$getStatePath()}')") }},
                 packageConfig: @js($config),
                 attribs: @js($attribs)
             })"
@@ -74,6 +74,7 @@
                         'disabled' => $isDisabled,
                         'id' => $id,
                         'x-ref' => 'picker',
+                        'x-model' => 'state',
                         'inlinePrefix' => $isPrefixInline && (count($prefixActions) || $prefixIcon || filled($prefixLabel)),
                         'inlineSuffix' => $isSuffixInline && (count($suffixActions) || $suffixIcon || filled($suffixLabel)),
                         'placeholder' => $getPlaceholder(),
