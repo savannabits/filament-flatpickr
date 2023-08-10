@@ -2,6 +2,14 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v3.0.1 - 2023-08-10
+
+### What's Changed
+
+- Bug Fix: Component State was always NULL by @coolsam726 in https://github.com/savannabits/filament-flatpickr/pull/36
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/3.0.0...v3.0.1
+
 ## 3.0.0 - 2023-08-02
 
 ### What's Changed
