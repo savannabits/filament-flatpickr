@@ -146,10 +146,10 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            if (Str::of($this->getDateFormat())->contains('d', ignoreCase: true)) {
+            if (\Str::of($this->getDateFormat())->contains('d', ignoreCase: true)) {
                 $this->dateFormat('Y-m'); // Setting default date format to Y-m if no date format is set by user
             }
-            if (Str::of($this->getAltFormat())->contains('d', ignoreCase: true)) {
+            if (\Str::of($this->getAltFormat())->contains('d', ignoreCase: true)) {
                 $this->altFormat('F Y'); // Setting default alt format to F Y if no alt format is set by user
             }
         } elseif ($this->isWeekSelect()) {
@@ -157,10 +157,10 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            if (Str::of($this->getDateFormat())->contains(['d', 'y'], ignoreCase: true)) {
+            if (\Str::of($this->getDateFormat())->contains(['d', 'y'], ignoreCase: true)) {
                 $this->dateFormat('W'); // Setting default date format to W if no date format is set by user
             }
-            if (Str::of($this->getAltFormat())->contains(['d', 'y'], ignoreCase: true)) {
+            if (\Str::of($this->getAltFormat())->contains(['d', 'y'], ignoreCase: true)) {
                 $this->altFormat('\Week W'); // Setting default alt format to Week W if no alt format is set by user
             }
         }
