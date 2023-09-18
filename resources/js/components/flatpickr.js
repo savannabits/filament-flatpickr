@@ -54,6 +54,7 @@ export default function flatpickrDatepicker(args) {
                     shorthand: false, //defaults to false
                     dateFormat: args.packageConfig.dateFormat ?? "F Y", //defaults to "F Y"
                     altInput: args.packageConfig.altInput ?? true,
+                    altFormat: args.packageConfig.altFormat ?? "F, Y",
                     theme: this.mode // defaults to "light"
                 }))
             } else if (this.attribs.weekSelect) {
