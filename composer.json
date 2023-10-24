@@ -1,12 +1,12 @@
 {
-    "name": "savannabits/filament-flatpickr",
+    "name": "opaweb/filament-flatpickr",
     "description": "The popular Datetime Picker as a Filament Field",
     "keywords": [
         "savannabits",
         "laravel",
         "filament-flatpickr"
     ],
-    "homepage": "https://github.com/savannabits/filament-flatpickr",
+    "homepage": "https://github.com/opaweb/filament-flatpickr",
     "license": "MIT",
     "authors": [
         {
