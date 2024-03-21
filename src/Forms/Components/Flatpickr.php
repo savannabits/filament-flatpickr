@@ -12,6 +12,7 @@ use Filament\Forms\Components\Concerns;
 use Filament\Forms\Components\Contracts;
 use Filament\Forms\Components\Field;
 use Filament\Support\Concerns\HasExtraAlpineAttributes;
+use Closure;
 
 class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contracts\HasAffixActions
 {
@@ -85,9 +86,9 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
 
     protected bool $inline = false;
 
-    protected Carbon|string|null $maxDate = null;
+    protected Carbon|string|null|Closure $maxDate = null;
 
-    protected Carbon|string|null $minDate = null;
+    protected Carbon|string|null|Closure $minDate = null;
 
     protected ?string $maxTime = null;
 
@@ -146,17 +147,23 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            $this->dateFormat('Y-m');
-            $this->altFormat('F J');
-            $this->altInput();
+            if (\Str::of($this->getDateFormat())->contains('d', ignoreCase: true)) {
+                $this->dateFormat('Y-m'); // Setting default date format to Y-m if no date format is set by user
+            }
+            if (\Str::of($this->getAltFormat())->contains('d', ignoreCase: true)) {
+                $this->altFormat('F Y'); // Setting default alt format to F Y if no alt format is set by user
+            }
         } elseif ($this->isWeekSelect()) {
             $this->mode(FlatpickrMode::SINGLE);
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            $this->dateFormat('W');
-            $this->altFormat('\Week W');
-            $this->altInput();
+            if (\Str::of($this->getDateFormat())->contains(['d', 'y'], ignoreCase: true)) {
+                $this->dateFormat('W'); // Setting default date format to W if no date format is set by user
+            }
+            if (\Str::of($this->getAltFormat())->contains(['d', 'y'], ignoreCase: true)) {
+                $this->altFormat('\Week W'); // Setting default alt format to Week W if no alt format is set by user
+            }
         }
         $config = [
             'monthSelect' => $this->monthSelect,
@@ -238,9 +245,12 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             '
         );
         $this->theme(config('coolsam-flatpickr.default_theme', FlatpickrTheme::DEFAULT));
-        $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
-            return self::dehydratePickerState($component, $state);
-        });
+        
+        if(! $this->dehydrateStateUsing){
+            $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
+                return self::dehydratePickerState($component, $state);
+            });
+        }
 
         /*$this->rule(
             'date',
@@ -477,7 +487,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         return $this->maxDate;
     }
 
-    public function maxDate(Carbon|string|null $maxDate = 'now'): static
+    public function maxDate(Carbon|string|null|Closure $maxDate = 'now'): static
     {
         $this->maxDate = $maxDate ? Carbon::parse($maxDate) : $maxDate;
 
@@ -489,7 +499,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         return $this->minDate;
     }
 
-    public function minDate(Carbon|string|null $minDate): static
+    public function minDate(Carbon|string|null $minDate|Closure): static
     {
         $this->minDate = $minDate ? Carbon::parse($minDate) : $minDate;
 

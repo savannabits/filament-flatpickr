@@ -48,12 +48,13 @@ export default function flatpickrDatepicker(args) {
                     el.href = this.attribs.darkThemeAsset;
                 }
             }
+
             if (this.attribs.monthSelect) {
                 config.plugins.push(new MonthSelect({
                     shorthand: false, //defaults to false
-                    dateFormat: "F Y", //defaults to "F Y"
-                    altInput: true,
-                    altFormat: "F, Y", //defaults to "F Y"
+                    dateFormat: args.packageConfig.dateFormat ?? "F Y", //defaults to "F Y"
+                    altInput: args.packageConfig.altInput ?? true,
+                    altFormat: args.packageConfig.altFormat ?? "F, Y",
                     theme: this.mode // defaults to "light"
                 }))
             } else if (this.attribs.weekSelect) {
