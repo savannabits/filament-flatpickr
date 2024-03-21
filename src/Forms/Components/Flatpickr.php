@@ -146,17 +146,23 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            $this->dateFormat('Y-m');
-            $this->altFormat('F J');
-            $this->altInput();
+            if (\Str::of($this->getDateFormat())->contains('d', ignoreCase: true)) {
+                $this->dateFormat('Y-m'); // Setting default date format to Y-m if no date format is set by user
+            }
+            if (\Str::of($this->getAltFormat())->contains('d', ignoreCase: true)) {
+                $this->altFormat('F Y'); // Setting default alt format to F Y if no alt format is set by user
+            }
         } elseif ($this->isWeekSelect()) {
             $this->mode(FlatpickrMode::SINGLE);
             $this->enableTime(false);
             $this->time(false);
             $this->range(false);
-            $this->dateFormat('W');
-            $this->altFormat('\Week W');
-            $this->altInput();
+            if (\Str::of($this->getDateFormat())->contains(['d', 'y'], ignoreCase: true)) {
+                $this->dateFormat('W'); // Setting default date format to W if no date format is set by user
+            }
+            if (\Str::of($this->getAltFormat())->contains(['d', 'y'], ignoreCase: true)) {
+                $this->altFormat('\Week W'); // Setting default alt format to Week W if no alt format is set by user
+            }
         }
         $config = [
             'monthSelect' => $this->monthSelect,
