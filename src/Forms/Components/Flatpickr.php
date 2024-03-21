@@ -238,9 +238,12 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
             '
         );
         $this->theme(config('coolsam-flatpickr.default_theme', FlatpickrTheme::DEFAULT));
-        $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
-            return self::dehydratePickerState($component, $state);
-        });
+        
+        if(! $this->dehydrateStateUsing){
+            $this->dehydrateStateUsing(static function (Flatpickr $component, $state) {
+                return self::dehydratePickerState($component, $state);
+            });
+        }
 
         /*$this->rule(
             'date',
