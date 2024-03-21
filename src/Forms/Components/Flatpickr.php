@@ -12,6 +12,7 @@ use Filament\Forms\Components\Concerns;
 use Filament\Forms\Components\Contracts;
 use Filament\Forms\Components\Field;
 use Filament\Support\Concerns\HasExtraAlpineAttributes;
+use Closure;
 
 class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contracts\HasAffixActions
 {
@@ -85,9 +86,9 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
 
     protected bool $inline = false;
 
-    protected Carbon|string|null $maxDate = null;
+    protected Carbon|string|null|Closure $maxDate = null;
 
-    protected Carbon|string|null $minDate = null;
+    protected Carbon|string|null|Closure $minDate = null;
 
     protected ?string $maxTime = null;
 
@@ -486,7 +487,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         return $this->maxDate;
     }
 
-    public function maxDate(Carbon|string|null $maxDate = 'now'): static
+    public function maxDate(Carbon|string|null|Closure $maxDate = 'now'): static
     {
         $this->maxDate = $maxDate ? Carbon::parse($maxDate) : $maxDate;
 
@@ -498,7 +499,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         return $this->minDate;
     }
 
-    public function minDate(Carbon|string|null $minDate): static
+    public function minDate(Carbon|string|null $minDate|Closure): static
     {
         $this->minDate = $minDate ? Carbon::parse($minDate) : $minDate;
 
