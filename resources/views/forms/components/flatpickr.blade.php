@@ -47,6 +47,7 @@
         ax-load-src="{{\Filament\Support\Facades\FilamentAsset::getAlpineComponentSrc('flatpickr-component',package: \Coolsam\FilamentFlatpickr\FilamentFlatpickr::getPackageName())}}"
     >
         <x-filament::input.wrapper
+            wire:ignore
             :disabled="$isDisabled"
             :inline-prefix="$isPrefixInline"
             :inline-suffix="$isSuffixInline"
