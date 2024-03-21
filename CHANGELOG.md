@@ -2,6 +2,28 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v3.1.0 - 2024-03-21
+
+### What's Changed
+
+* Allow globally configure dehydrateStateUsing by @rahmanramsi in https://github.com/savannabits/filament-flatpickr/pull/40
+* Bump actions/checkout from 3 to 4 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/43
+* Bug Fix: Month Selector and Week Selector by @alexandrevega in https://github.com/savannabits/filament-flatpickr/pull/46
+* Bump stefanzweifel/git-auto-commit-action from 4 to 5 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/47
+* Allow Closure at min and max date by @stephanus-tantiono in https://github.com/savannabits/filament-flatpickr/pull/49
+* Fix altInput with `live()` fields by @dave-mills in https://github.com/savannabits/filament-flatpickr/pull/51
+* add Laravel 11 support by @atmonshi in https://github.com/savannabits/filament-flatpickr/pull/54
+
+### New Contributors
+
+* @rahmanramsi made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/40
+* @alexandrevega made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/46
+* @stephanus-tantiono made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/49
+* @dave-mills made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/51
+* @atmonshi made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/54
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v3.0.1...v3.1.0
+
 ## v3.0.1 - 2023-08-10
 
 ### What's Changed
