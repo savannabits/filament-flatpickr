@@ -499,7 +499,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
         return $this->minDate;
     }
 
-    public function minDate(Carbon|string|null $minDate|Closure): static
+    public function minDate(Carbon|string|null|Closure $minDate): static
     {
         $this->minDate = $minDate ? Carbon::parse($minDate) : $minDate;
 
