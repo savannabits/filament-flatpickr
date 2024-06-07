@@ -803,7 +803,7 @@ class Flatpickr extends Field implements Contracts\CanBeLengthConstrained, Contr
 
     public function getTheme(): string
     {
-        return $this->theme?->value;
+        return $this->theme->value;
     }
 
     public function getThemeAsset(): string
