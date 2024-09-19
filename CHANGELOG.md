@@ -2,6 +2,22 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v3.1.1 - 2024-09-19
+
+### What's Changed
+
+* Bump aglipanci/laravel-pint-action from 2.3.0 to 2.3.1 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/59
+* Bump aglipanci/laravel-pint-action from 2.3.1 to 2.4 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/64
+* Fix minDate Function by @AhmadFida2 in https://github.com/savannabits/filament-flatpickr/pull/58
+* fix PHPStan by @AurelDemiri in https://github.com/savannabits/filament-flatpickr/pull/68
+
+### New Contributors
+
+* @AhmadFida2 made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/58
+* @AurelDemiri made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/68
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v3.1.0...v3.1.1
+
 ## v3.1.0 - 2024-03-21
 
 ### What's Changed
