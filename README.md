@@ -9,6 +9,10 @@
 
 Use **[Flatpickr](https://flatpickr.js.org/)** as your datepicker in the Filament Forms and Panels.
 
+> [!IMPORTANT]
+> **HELP NEEDED**  
+> I need help in maintaining this project, given that I am currently unable to give it sufficient time. If you are willing and able to assist in maintaining the package, please reach out.
+
 **NB: These docs are for v3.x, which only supports Filament 3.x. For Filament v2 users, [use this guide instead](https://github.com/savannabits/filament-flatpickr/tree/main)**
 
 ## Installation
