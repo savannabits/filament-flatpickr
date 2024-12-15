@@ -1,4 +1,5 @@
 import flatpickr from "flatpickr";
+import flatpickrLocales from 'flatpickr/dist/l10n';
 import ConfirmDate from "../../assets/flatpickr/dist/esm/plugins/confirmDate/confirmDate.js";
 import MonthSelect from "../../assets/flatpickr/dist/esm/plugins/monthSelect/index.js";
 import WeekSelect from "../../assets/flatpickr/dist/esm/plugins/weekSelect/weekSelect.js";
@@ -62,6 +63,7 @@ export default function flatpickrDatepicker(args) {
             }/* else if (this.attribs.rangePicker) {
                 config.plugins.push(new RangePlugin({}))
             }*/
+            flatpickr.localize(flatpickrLocales)
             this.fp = flatpickr(this.$refs.picker, config);
             this.fp.parseDate(this.state, this.packageConfig.dateFormat)
             window.addEventListener('theme-changed', e => {
