@@ -2,6 +2,21 @@
 
 All notable changes to `filament-flatpickr` will be documented in this file.
 
+## v3.2.0 - 2025-02-28
+
+### What's Changed
+
+* Bump ramsey/composer-install from 2 to 3 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/60
+* Bump dependabot/fetch-metadata from 1.6.0 to 2.2.0 by @dependabot in https://github.com/savannabits/filament-flatpickr/pull/71
+* add i18n support by @neatstudio in https://github.com/savannabits/filament-flatpickr/pull/75
+* remove illuminate/contracts to support any laravel version by @atmonshi in https://github.com/savannabits/filament-flatpickr/pull/79
+
+### New Contributors
+
+* @neatstudio made their first contribution in https://github.com/savannabits/filament-flatpickr/pull/75
+
+**Full Changelog**: https://github.com/savannabits/filament-flatpickr/compare/v3.1.1...v3.2.0
+
 ## v3.1.1 - 2024-09-19
 
 ### What's Changed
