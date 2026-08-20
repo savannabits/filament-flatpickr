@@ -62,7 +62,7 @@ class Flatpickr extends Field
 
     protected array | Closure $prefixActions = [];
 
-    protected string | Closure | null $prefixIcon = null;
+    protected string | Closure | null $prefixIcon = 'heroicon-o-calendar-days';
 
     protected string | Closure | null $prefixIconColor = null;
 
@@ -148,6 +148,8 @@ class Flatpickr extends Field
     protected bool | Closure $multiplePicker = false;
 
     protected bool | Closure $timePicker = false;
+
+    protected bool | Closure | null $hasTags = null;
 
     protected FlatpickrMonthSelectorType | Closure $monthSelectorType = FlatpickrMonthSelectorType::DROPDOWN_SELECTOR;
 
@@ -1280,6 +1282,28 @@ class Flatpickr extends Field
         return $this;
     }
 
+    /**
+     * List the selected dates as removable tags below the input. Defaults to on
+     * for pickers that can hold more than one date.
+     */
+    public function tags(Closure | bool $tags = true): Flatpickr
+    {
+        $this->hasTags = $tags;
+
+        return $this;
+    }
+
+    public function hasTags(): bool
+    {
+        $tags = $this->evaluate($this->hasTags);
+
+        if ($tags === null) {
+            return $this->isMultiplePicker();
+        }
+
+        return FilamentFlatpickr::getBool($tags);
+    }
+
     // Getters
     public function getThemeAsset(): string
     {
@@ -1631,6 +1655,10 @@ class Flatpickr extends Field
         if (filled($this->isInline())) {
             $attrs->put('inline', $this->isInline());
         }
+
+        // The tag list replaces the joined value in the input, so the Alpine
+        // component needs to know whether it is being rendered.
+        $attrs->put('showTags', $this->hasTags());
 
         return $attrs->toArray();
     }

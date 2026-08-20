@@ -20,3 +20,43 @@
     width: 100%;
     opacity: 1;
 }
+
+/*
+ * Field chrome. These are written as plain CSS rather than Tailwind utilities so
+ * they work in any app, whether or not it compiles a custom Filament theme that
+ * scans this package's views.
+ */
+
+/* Tags and the input share one wrapping row, so the field never grows a second
+   row just to hold an input that the tags have already emptied. */
+.fi-fo-flatpickr-input-ctn {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    min-width: 0;
+}
+
+.fi-fo-flatpickr-input-ctn > input {
+    /* Keeps a clickable stretch of input after the last tag. */
+    flex: 1 1 8rem;
+    min-width: 0;
+}
+
+/* Clicking a prefix or suffix affix opens the calendar. */
+.fi-fo-flatpickr-wrp .fi-input-wrp-prefix,
+.fi-fo-flatpickr-wrp .fi-input-wrp-suffix {
+    cursor: pointer;
+}
+
+.fi-fo-flatpickr-tags-ctn {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    /* Matches `input.fi-input`'s own padding so tags align with its text. */
+    padding-block: 0.375rem;
+    padding-inline-start: 0.75rem;
+}
+
+.fi-fo-flatpickr-tags-ctn > template {
+    display: none;
+}

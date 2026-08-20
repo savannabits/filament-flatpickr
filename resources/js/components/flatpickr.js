@@ -105,6 +105,10 @@ function setRangeDatesOnPicker(fp, dates, triggerChange = false) {
   fp.updateValue(triggerChange)
 }
 
+function showsTags(attrs) {
+  return attrs.showTags === true
+}
+
 export default function flatpickrComponent(state, attrs) {
   const timezone = dayjs.tz.guess()
 
@@ -116,6 +120,9 @@ export default function flatpickrComponent(state, attrs) {
     fp: null,
     visibilityObserver: null,
     isPickerUpdate: false,
+
+    // Selected dates, formatted for display, driving the tag list.
+    tags: [],
 
     init: function () {
       this.initWhenVisible()
@@ -129,6 +136,32 @@ export default function flatpickrComponent(state, attrs) {
       })
 
       this.registerModalListeners()
+      this.bindAffixTriggers()
+    },
+
+    // Makes the prefix/suffix affixes (the calendar icon, by default) open the
+    // picker. Filament's own `focus-input` convention is not used here because
+    // it needs an Alpine root somewhere above the input wrapper, which a schema
+    // does not guarantee; this element always has one.
+    bindAffixTriggers: function () {
+      const wrapper = this.$el.closest('.fi-input-wrp')
+
+      if (!wrapper) {
+        return
+      }
+
+      wrapper
+        .querySelectorAll(':scope > .fi-input-wrp-prefix, :scope > .fi-input-wrp-suffix')
+        .forEach((affix) => {
+          affix.addEventListener('click', (event) => {
+            // Prefix and suffix actions are buttons in their own right.
+            if (event.target.closest('.fi-input-wrp-actions')) {
+              return
+            }
+
+            this.togglePicker()
+          })
+        })
     },
 
     registerModalListeners: function () {
@@ -170,6 +203,66 @@ export default function flatpickrComponent(state, attrs) {
       this.visibilityObserver.observe(this.$el)
     },
 
+    // --- Public API used by the view -------------------------------------
+
+    showsTags: function () {
+      return showsTags(this.attrs)
+    },
+
+    togglePicker: function () {
+      if (!this.fp) {
+        this.initFlatpickr()
+      }
+
+      if (!this.fp || this.fp.config.clickOpens === false) {
+        return
+      }
+
+      if (this.fp.isOpen) {
+        this.fp.close()
+
+        return
+      }
+
+      this.fp.open()
+    },
+
+    removeDate: function (index) {
+      if (!this.fp) {
+        return
+      }
+
+      const remaining = this.fp.selectedDates.filter((date, position) => position !== index)
+
+      // An empty array makes flatpickr clear itself, which also triggers onChange.
+      this.fp.setDate(remaining, true)
+      this.refreshDisplay()
+    },
+
+    // ---------------------------------------------------------------------
+
+    refreshDisplay: function () {
+      if (!this.fp) {
+        this.tags = []
+
+        return
+      }
+
+      const format = this.fp.config.altFormat ?? this.fp.config.dateFormat
+      const dates =
+        isRangeMode(this.attrs) && this.fp.selectedDates.length >= 2
+          ? sortSelectedDates(this.fp.selectedDates)
+          : this.fp.selectedDates
+
+      this.tags = dates.map((date) => this.fp.formatDate(date, format))
+
+      // With tags on, the dates are listed below the field, so leaving the
+      // joined string in the input as well would just duplicate them.
+      if (this.showsTags() && !this.attrs.allowInput && this.fp.altInput) {
+        this.fp.altInput.value = ''
+      }
+    },
+
     setPickerState: function (selectedDates) {
       if (isRangeMode(this.attrs) && selectedDates.length >= 2) {
         selectedDates = sortSelectedDates(selectedDates)
@@ -186,6 +279,8 @@ export default function flatpickrComponent(state, attrs) {
       this.$nextTick(() => {
         this.isPickerUpdate = false
       })
+
+      this.refreshDisplay()
     },
 
     initFlatpickr: function () {
@@ -236,6 +331,8 @@ export default function flatpickrComponent(state, attrs) {
         locale: customLocale,
         plugins,
         onChange: (selectedDates, dateStr) => {
+          this.refreshDisplay()
+
           if (this.attrs.yearPicker && selectedDates.length > 0) {
             this.state = String(selectedDates[0].getFullYear())
 
@@ -250,6 +347,9 @@ export default function flatpickrComponent(state, attrs) {
 
           this.setPickerState(selectedDates)
         },
+        onValueUpdate: () => {
+          this.refreshDisplay()
+        },
         onClose: () => {
           this.syncStateFromPicker()
         },
@@ -261,6 +361,8 @@ export default function flatpickrComponent(state, attrs) {
       this.fp = flatpickr(this.$refs.input, config)
 
       this.bindManualInputEvents()
+      this.keepFocusOnInput()
+      this.refreshDisplay()
 
       if (this.state) {
         this.syncPickerFromState(this.state)
@@ -276,8 +378,37 @@ export default function flatpickrComponent(state, attrs) {
 
       inputs.forEach((input) => {
         input.addEventListener('blur', () => {
+          // While the calendar is open the blur is just the user reaching for a
+          // day; committing here would redraw the calendar out from under the
+          // click. onClose does the commit once the picker is actually done.
+          if (this.fp?.isOpen) {
+            return
+          }
+
           this.commitManualInput()
         })
+      })
+    },
+
+    // Clicking a day blurs the input, and that blur is what previously ate the
+    // first click: the calendar redrew between mousedown and mouseup, so the
+    // click never landed on a day element. Suppressing the default mousedown
+    // behaviour inside the calendar keeps focus on the input entirely.
+    keepFocusOnInput: function () {
+      const container = this.fp?.calendarContainer
+
+      if (!container) {
+        return
+      }
+
+      container.addEventListener('mousedown', (event) => {
+        // Fields inside the calendar (year, hours, minutes, the month
+        // dropdown) still need to be focusable.
+        if (event.target.closest('input, select, textarea')) {
+          return
+        }
+
+        event.preventDefault()
       })
     },
 
@@ -309,6 +440,18 @@ export default function flatpickrComponent(state, attrs) {
       const inputValue = this.fp.altInput?.value ?? this.fp.input.value
 
       if (inputValue === '') {
+        // With tags on, a blank input alongside selected dates is the normal
+        // state rather than the user erasing the value.
+        if (this.showsTags() && this.fp.selectedDates.length) {
+          return
+        }
+
+        // Nothing to clear: clearing anyway would redraw the calendar for no
+        // reason, which is what used to swallow clicks.
+        if (!this.fp.selectedDates.length && normalizeState(this.state) === null) {
+          return
+        }
+
         this.fp.clear()
         this.state = null
 
@@ -337,6 +480,11 @@ export default function flatpickrComponent(state, attrs) {
     },
 
     syncPickerFromState: function (value) {
+      this.applyStateToPicker(value)
+      this.refreshDisplay()
+    },
+
+    applyStateToPicker: function (value) {
       if (!this.fp) {
         return
       }

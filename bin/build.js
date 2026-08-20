@@ -44,6 +44,7 @@ const defaultOptions = {
                 console.log('Copying assets from node modules to dist folder')
                 const sourceDir = './node_modules/flatpickr/dist/themes'
                 const destDir = './resources/dist/themes'
+                const overrideDir = './resources/css/themes'
 
                 // Ensure the destination directory exists
                 fs.mkdirSync(destDir, { recursive: true })
@@ -54,7 +55,18 @@ const defaultOptions = {
                     const destFile = path.join(destDir, file)
 
                     fs.copyFileSync(sourceFile, destFile)
-                    console.log(`Copied: ${file}`)
+
+                    // The vendor themes are overwritten on every build, so our
+                    // fixes for them live in resources/css/themes and get
+                    // appended here instead of being edited into the dist file.
+                    const overrideFile = path.join(overrideDir, file)
+
+                    if (fs.existsSync(overrideFile)) {
+                        fs.appendFileSync(destFile, '\n' + fs.readFileSync(overrideFile, 'utf8'))
+                        console.log(`Copied: ${file} (+ overrides)`)
+                    } else {
+                        console.log(`Copied: ${file}`)
+                    }
                 })
 
                 console.log('All theme assets have been copied successfully.')

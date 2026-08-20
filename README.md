@@ -125,6 +125,25 @@ Flatpickr::make('event_date')
 
 See the [Flatpickr documentation](https://flatpickr.js.org/options/) for details on each option.
 
+### Field chrome
+
+The input ships with a calendar prefix icon and — for pickers that hold more than
+one date — removable tags for each selected date:
+
+```php
+Flatpickr::make('event_date')
+    ->prefixIcon('heroicon-o-calendar-days') // the default; pass null to drop it
+    ->tags();                                // default: on for multiple pickers
+```
+
+* **Prefix icon.** Clicking it opens (or closes) the calendar, the same as clicking
+  the input. Any prefix or suffix affix you add behaves the same way; prefix and
+  suffix *actions* keep their own click behaviour.
+* **Tags.** Each selected date becomes a tag inside the input, with its own remove
+  button. While tags are shown the input itself stays empty rather than repeating
+  the dates as a joined string, so pass `->tags(false)` to keep the classic
+  comma-separated value.
+
 ## State types
 
 | Picker | Dehydrated state |
@@ -179,6 +198,11 @@ return [
 ```
 
 > **Recommendation:** Use the **DEFAULT** theme. It is styled with Tailwind to match Filament, including dark mode. Bundled Flatpickr themes may not align with your panel styling.
+
+The bundled Flatpickr themes are copied verbatim from the `flatpickr` package and
+most of them are light-only. Where a theme needs fixing for Filament's dark mode,
+the overrides live in `resources/css/themes/<theme>.css` and `bin/build.js`
+appends them to the copied theme, so never edit `resources/dist/themes/` by hand.
 
 Theme previews are included in the [screenshots](#theme-gallery) below.
 
